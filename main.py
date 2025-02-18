@@ -19,6 +19,7 @@ def main():
                 return
 
         screen.fill((0,0,0))
+        ship.update(dt)
         ship.draw(screen)
         pygame.display.flip() #refreshes the screen
         time = clock.tick(60)
