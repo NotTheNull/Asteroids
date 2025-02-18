@@ -28,10 +28,12 @@ def game_init():
     group_drawable = pygame.sprite.Group()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    
+    Player.containers = (group_drawable, group_updatable)
     ship = Player(start_x, start_y)
     
-    group_drawable.add(ship)
-    group_updatable.add(ship)
+    #group_drawable.add(ship)
+    #group_updatable.add(ship)
 
 
 def game_loop():
