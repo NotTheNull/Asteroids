@@ -3,6 +3,9 @@ from player import Player
 
 from constants import *
 
+group_updatable = None
+group_drawable = None
+
 ship = None
 screen = None
 clock = None
@@ -17,11 +20,18 @@ def game_init():
     global screen
     global clock
     global ship
+    global group_updatable
+    global group_drawable
 
     pygame.init()
+    group_updatable = pygame.sprite.Group()
+    group_drawable = pygame.sprite.Group()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     ship = Player(start_x, start_y)
+    
+    group_drawable.add(ship)
+    group_updatable.add(ship)
 
 
 def game_loop():
@@ -32,8 +42,14 @@ def game_loop():
                 return
 
         screen.fill((0,0,0))
-        ship.update(dt)
-        ship.draw(screen)
+
+        # weirdly, updateables can be called all at once ...
+        group_updatable.update(dt)
+        
+        # ... but drawables have to be called individually.  Is it a refresh rate thing?
+        for entity in group_drawable:
+            entity.draw(screen)
+        
         pygame.display.flip() #refreshes the screen
         time = clock.tick(60)
         dt = time / 1000 
