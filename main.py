@@ -66,6 +66,12 @@ def game_loop():
             if ship.check_collision(ast):
                 print("-- GAME OVER --")
                 return
+            
+            for sht in group_shots:
+                if sht.check_collision(ast):
+                    sht.kill()
+                    ast.kill()
+                    break
 
         # ... but drawables have to be called individually.  Is it a refresh rate thing?
         for entity in group_drawable:
