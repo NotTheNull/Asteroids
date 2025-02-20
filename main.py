@@ -70,7 +70,7 @@ def game_loop():
             for sht in group_shots:
                 if sht.check_collision(ast):
                     sht.kill()
-                    ast.kill()
+                    ast.split()
                     break
 
         # ... but drawables have to be called individually.  Is it a refresh rate thing?
