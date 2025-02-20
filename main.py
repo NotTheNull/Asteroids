@@ -1,12 +1,14 @@
 import pygame
+from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from constants import *
+from shot import Shot
 
 group_updatable = None
 group_drawable = None
 group_asteroids = None
+group_shots = None
 
 field = None
 ship = None
@@ -27,17 +29,21 @@ def game_init():
     global group_updatable
     global group_drawable
     global group_asteroids
+    global group_shots
 
     pygame.init()
     group_asteroids = pygame.sprite.Group()
     group_updatable = pygame.sprite.Group()
     group_drawable = pygame.sprite.Group()
+    group_shots = pygame.sprite.Group()
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     
     Player.containers = (group_drawable, group_updatable)
     Asteroid.containers = (group_asteroids, group_drawable, group_updatable)
     AsteroidField.containers = (group_updatable)
+    Shot.containers = (group_shots, group_drawable, group_updatable)
 
     field = AsteroidField()
     ship = Player(start_x, start_y)
