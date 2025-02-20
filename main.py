@@ -55,6 +55,12 @@ def game_loop():
         # weirdly, updateables can be called all at once ...
         group_updatable.update(dt)
         
+        # iterate through the asteroids to see if the ship has collided
+        for ast in group_asteroids:
+            if ship.check_collision(ast):
+                print("-- GAME OVER --")
+                return
+
         # ... but drawables have to be called individually.  Is it a refresh rate thing?
         for entity in group_drawable:
             entity.draw(screen)

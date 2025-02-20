@@ -21,3 +21,10 @@ class CircleShape(pygame.sprite.Sprite):
         # sub-classes must override
         pass
     
+    #Checks if self and entity are colliding
+    #collision is defined as the distance being less than the sum of both radii
+    #entity: CircleShape
+    def check_collision(self, entity):
+        actual_distance = pygame.math.Vector2.distance_to(self.position, entity.position)
+        min_safe_distance = self.radius + entity.radius
+        return actual_distance <= min_safe_distance
